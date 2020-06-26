@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="546.0" prefWidth="1258.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PilnasSarController">
+    <children>
+        <BorderPane prefHeight="605.0" prefWidth="1258.0" />
+        <GridPane layoutX="288.0" layoutY="21.0" prefHeight="560.0" prefWidth="716.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <TableView fx:id="pilnasSar" prefHeight="529.0" prefWidth="716.0" tableMenuButtonVisible="true">
+                    <columns>
+                        <TableColumn fx:id="Kodas" prefWidth="75.0" text="Kodas" />
+                        <TableColumn fx:id="PavadinimasVal" prefWidth="500.0" text="Pavadinimas" />
+                        <TableColumn fx:id="IrasoData" editable="false" prefWidth="120.0" text="Įrašo data" />
+                    </columns>
+                </TableView>
+            </children>
+        </GridPane>
+        </children>
+</AnchorPane>

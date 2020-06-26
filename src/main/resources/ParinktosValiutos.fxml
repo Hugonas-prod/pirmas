@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="605.0" prefWidth="1091.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ParinktosValController">
+    <children>
+        <BorderPane prefHeight="605.0" prefWidth="1124.0">
+         <top>
+            <Button fx:id="newButton4"  mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" onAction="#saugotiParinktas" text="Išsaugoti parinktas valiutas" BorderPane.alignment="CENTER">
+             <BorderPane.margin>
+                  <Insets top="50.0" />
+               </BorderPane.margin>
+            </Button>
+         </top></BorderPane>
+        <ListView fx:id="visosValiutos" layoutX="33.0" layoutY="76.0" prefHeight="500.0" prefWidth="348.0" />
+        <GridPane layoutX="462.0" layoutY="91.0" prefHeight="490.0" prefWidth="615.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <TableView fx:id="parinktosVal" prefHeight="473.0" prefWidth="615.0" tableMenuButtonVisible="true">
+                    <columns>
+                        <TableColumn fx:id="Kodas" prefWidth="75.0" text="Kodas" />
+                        <TableColumn fx:id="PavadinimasVal" prefWidth="352.0" text="Pavadinimas" />
+                        <TableColumn fx:id="IrasoData" editable="false" prefWidth="152.0" text="Įrašo data" />
+                    </columns>
+                </TableView>
+            </children>
+        </GridPane>
+      <Label layoutX="33.0" layoutY="52.0" prefHeight="27.0" prefWidth="106.0" text="Parinkti valiutas" />
+    </children>
+</AnchorPane>

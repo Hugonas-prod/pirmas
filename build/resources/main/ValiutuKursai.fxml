@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="666.0" prefWidth="1258.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ValiutuKursaiController">
+    <children>
+        <BorderPane prefHeight="666.0" prefWidth="1258.0" />
+        <GridPane layoutX="63.0" layoutY="67.0" prefHeight="563.0" prefWidth="1133.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <TableView fx:id="valKursai" prefHeight="563.0" prefWidth="807.0" tableMenuButtonVisible="true">
+                    <columns>
+                        <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
+                        <TableColumn fx:id="REQUEST_DATE" prefWidth="119.0" text="REQUEST_DATE" />
+                        <TableColumn fx:id="RATE_DATE" prefWidth="104.0" text="RATE_DATE" />
+                        <TableColumn fx:id="FROM_CURR" prefWidth="85.0" text="FROM_CURR" />
+                        <TableColumn fx:id="FROM_AMOUNT" prefWidth="110.0" text="FROM_AMOUNT" />
+                        <TableColumn fx:id="TO_CURR" prefWidth="106.0" text="TO_CURR" />
+                        <TableColumn fx:id="PAVADINIMAS" prefWidth="297.0" text="TITLE" />
+                        <TableColumn fx:id="TO_AMOUNT" prefWidth="100.0" text="TO_AMOUNT" />
+                        <TableColumn fx:id="CREATED_DATE" prefWidth="129.0" text="CREATED_DATE" />
+                    </columns>
+                </TableView>
+            </children>
+        </GridPane>
+      </children>
+</AnchorPane>
