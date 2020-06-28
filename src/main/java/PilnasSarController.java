@@ -42,7 +42,7 @@ import java.util.ResourceBundle;
         @FXML
         public void rodytiSarasa() throws SQLException {
 
-            con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.2.154:1521:xe", "VARTOTOJAS", "vartotojas");
+            con = DriverManager.getConnection(Database.CONNECTION_STRING, Database.USER_STRING, Database.PWD_STRING);
             String query = "SELECT KODAS , PAVADINIMAS, CREATED_DATE FROM sarasas";
             PreparedStatement statement = null;
             try {

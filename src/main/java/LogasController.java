@@ -58,7 +58,7 @@ public class LogasController  implements Initializable {
     @FXML
     public void rodytiLoga() throws SQLException {
 
-        con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.2.154:1521:xe", "VARTOTOJAS", "vartotojas");
+        con = DriverManager.getConnection(Database.CONNECTION_STRING, Database.USER_STRING, Database.PWD_STRING);
         String query = "SELECT ID, REQUEST_DATE, TO_CURR, CREATED_DATE, PROBLEM FROM problems_log";
         PreparedStatement statement = null;
         try {

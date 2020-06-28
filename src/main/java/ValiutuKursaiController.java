@@ -61,7 +61,7 @@ public class ValiutuKursaiController implements Initializable {
     @FXML
     public void rodytiKursa() throws SQLException {
 
-            con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.2.154:1521:xe", "VARTOTOJAS", "vartotojas");
+            con = DriverManager.getConnection(Database.CONNECTION_STRING, Database.USER_STRING, Database.PWD_STRING);
             String query = "SELECT k.ID,k.REQUEST_DATE,k.RATE_DATE,k.FROM_CURR,k.FROM_AMOUNT,k.TO_CURR,k.TO_AMOUNT,k.CREATED_DATE,"
             + "s.PAVADINIMAS FROM kursai k left join sarasas s on k.TO_CURR =s.kodas";
             PreparedStatement statement = null;

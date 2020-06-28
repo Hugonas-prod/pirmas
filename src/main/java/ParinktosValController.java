@@ -45,7 +45,7 @@ public class ParinktosValController implements Initializable {
     @FXML
     public void rodytiPasirinktas() throws SQLException {
 
-        con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.2.154:1521:xe", "VARTOTOJAS", "vartotojas");
+        con = DriverManager.getConnection(Database.CONNECTION_STRING, Database.USER_STRING, Database.PWD_STRING);
         String query = "select pas.KODAS,sar.PAVADINIMAS,pas.CREATED_DATE from pasirinktos pas left join sarasas sar on pas.kodas= sar.kodas";
         PreparedStatement statement = null;
         try {
@@ -78,7 +78,7 @@ public class ParinktosValController implements Initializable {
     public void uzpildytiSarasa() throws SQLException {
             ArrayList <String> currList = new ArrayList<>();
             ListProperty<String> listProperty = new SimpleListProperty<>();
-            con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.2.154:1521:xe", "VARTOTOJAS", "vartotojas");
+            con = DriverManager.getConnection(Database.CONNECTION_STRING, Database.USER_STRING, Database.PWD_STRING);
             String query = "SELECT kodas,pavadinimas FROM sarasas order by pavadinimas";
             PreparedStatement statement = null;
             try {
@@ -103,7 +103,7 @@ public class ParinktosValController implements Initializable {
      @FXML
      public void saugotiParinktas() {
             try {
-                con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.2.154:1521:xe", "VARTOTOJAS", "vartotojas");
+                con = DriverManager.getConnection(Database.CONNECTION_STRING, Database.USER_STRING, Database.PWD_STRING);
                 Statement stmt = con.createStatement();
                 stmt.executeQuery("delete from pasirinktos");
 

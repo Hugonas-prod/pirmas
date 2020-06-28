@@ -36,6 +36,9 @@ import javafx.fxml.Initializable;
 public class Database implements Initializable {
 
     private static Connection con;
+    public static final String CONNECTION_STRING = "jdbc:oracle:thin:@192.168.2.154:1521:xe";
+    public static final String USER_STRING = "VARTOTOJAS";
+    public static final String PWD_STRING = "vartotojas";
 
         @FXML
         private DatePicker kursoData3;
@@ -256,7 +259,7 @@ public class Database implements Initializable {
         @FXML
         private void gautiKursusXML2(DatePicker kursoData3) throws SQLException {
             //pasimti pageidaujamu valiutu sarasa
-            con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.2.154:1521:xe", "VARTOTOJAS", "vartotojas");
+            con = DriverManager.getConnection(Database.CONNECTION_STRING, Database.USER_STRING, Database.PWD_STRING);
             String query = "SELECT kodas FROM pasirinktos";
             PreparedStatement statement = null;
             try {
