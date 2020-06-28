@@ -31,3 +31,13 @@ _ReSharper*/
 #Nuget packages folder
 packages/
 *.dll
+build
+out
+*.iml
+*.ipr
+*.iws
+.idea
+.gradle
+gradle
+javafx*
+lib
