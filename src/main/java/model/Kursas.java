@@ -1,5 +1,4 @@
 package model;
-
 import java.util.Date;
 
 public class Kursas {
@@ -11,7 +10,7 @@ public class Kursas {
     private String TO_CURR;
     private String PAVADINIMAS;
     private double TO_AMOUNT;
-    private Date CREATED_DATE;
+    private java.sql.Date CREATED_DATE;
 
     public Kursas() {
         this.ID = ID;
@@ -88,11 +87,12 @@ public class Kursas {
         this.TO_AMOUNT = TO_AMOUNT;
     }
 
-    public Date getCREATED_DATE() {
+    public java.sql.Date getCREATED_DATE() {
         return CREATED_DATE;
     }
 
-    public void setCREATED_DATE(Date CREATED_DATE) {
+    public void setCREATED_DATE(java.sql.Date CREATED_DATE) {
         this.CREATED_DATE = CREATED_DATE;
     }
+
 }

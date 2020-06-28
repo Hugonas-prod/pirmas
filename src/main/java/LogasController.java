@@ -4,9 +4,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
+import model.Kursas;
 import model.Logas;
 import java.net.*;
 import java.sql.*;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -82,11 +86,34 @@ public class LogasController  implements Initializable {
         REQUEST_DATE.setCellValueFactory(new PropertyValueFactory<Logas, java.util.Date>("REQUEST_DATE"));
         TO_CURR.setCellValueFactory(new PropertyValueFactory<Logas, String>("TO_CURR"));
         CREATED_DATE.setCellValueFactory(new PropertyValueFactory<Logas, java.util.Date>("CREATED_DATE"));
+        CREATED_DATE.setCellFactory(new LogasController.ColumnFormatter<Logas, Date>(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")));
         PROBLEM.setCellValueFactory(new PropertyValueFactory<Logas, String>("PROBLEM"));
         logasErrors.setItems(duomenys);
         con.close();
 
     }
 
+    public static class ColumnFormatter<S, T> implements Callback<TableColumn<S, T>, TableCell<S, T>> {
+        private Format format;
+
+        public ColumnFormatter(Format format) {
+            super();
+            this.format = format;
+        }
+        @Override
+        public TableCell<S, T> call(TableColumn<S, T> arg0) {
+            return new TableCell<S, T>() {
+                @Override
+                protected void updateItem(T item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || empty) {
+                        setGraphic(null);
+                    } else {
+                        setGraphic(new Label(format.format(item)));
+                    }
+                }
+            };
+        }
+    }
 }
 

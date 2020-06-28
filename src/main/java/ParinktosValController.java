@@ -6,10 +6,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.Logas;
 import model.Sarasas;
 import java.net.*;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ParinktosValController implements Initializable {
@@ -66,6 +69,7 @@ public class ParinktosValController implements Initializable {
         Kodas.setCellValueFactory(new PropertyValueFactory<Sarasas, String>("Kodas"));
         PavadinimasVal.setCellValueFactory(new PropertyValueFactory<Sarasas, String>("PavadinimasVal"));
         IrasoData.setCellValueFactory(new PropertyValueFactory<Sarasas, java.util.Date>("IrasoData"));
+        IrasoData.setCellFactory(new LogasController.ColumnFormatter<Sarasas, Date>(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")));
         parinktosVal.setItems(duomenys);
         con.close();
     }

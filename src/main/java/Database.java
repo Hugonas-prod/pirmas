@@ -10,10 +10,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import model.Kursas;
 import org.jdom2.Document;
@@ -109,12 +112,8 @@ public class Database implements Initializable {
                 rootNode = document.getRootElement();
                 List list = rootNode.getChildren("item");
 
-                //step2 create  the connection object
                 con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.2.154:1521:xe", "VARTOTOJAS", "vartotojas");
-                //step3 create the statement object
                 Statement stmt = con.createStatement();
-
-                //step4 execute query
                 stmt.executeQuery("delete from sarasas");
 
                 String veiksmas = "insert into sarasas (kodas,pavadinimas) values (?, ?)";
@@ -133,8 +132,41 @@ public class Database implements Initializable {
                 }
                 con.close();
 
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Informacija");
+                alert.setHeaderText(null);
+                alert.setContentText("Sarasas gautas");
+
+                alert.showAndWait();
+
             } catch (Exception e) {
-                e.printStackTrace();
+//                e.printStackTrace();
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+                e.printStackTrace(pw);
+                String error = sw.toString();
+
+                TextArea textArea = new TextArea(error);
+                textArea.setEditable(false);
+                textArea.setWrapText(true);
+
+                textArea.setMaxWidth(Double.MAX_VALUE);
+                textArea.setMaxHeight(Double.MAX_VALUE);
+
+                GridPane.setVgrow(textArea, Priority.ALWAYS);
+                GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+                GridPane expContent = new GridPane();
+                expContent.setMaxWidth(Double.MAX_VALUE);
+                expContent.add(textArea, 0, 1);
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Informacija");
+                alert.setHeaderText(null);
+                alert.setContentText("Sarasas negautas");
+
+                alert.getDialogPane().setExpandableContent(expContent);
+                alert.showAndWait();
             }
         }
 
@@ -172,8 +204,42 @@ public class Database implements Initializable {
             newbutton5.setOnAction(value ->  {
                 try {
                     gautiKursusXML2(kursoData3);
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Informacija");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Kursai gauti");
+                    alert.showAndWait();
+
                 } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+//                    throwables.printStackTrace();
+
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    throwables.printStackTrace(pw);
+                    String error = sw.toString();
+
+                    TextArea textArea = new TextArea(error);
+                    textArea.setEditable(false);
+                    textArea.setWrapText(true);
+
+                    textArea.setMaxWidth(Double.MAX_VALUE);
+                    textArea.setMaxHeight(Double.MAX_VALUE);
+
+                    GridPane.setVgrow(textArea, Priority.ALWAYS);
+                    GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+                    GridPane expContent = new GridPane();
+                    expContent.setMaxWidth(Double.MAX_VALUE);
+                    expContent.add(textArea, 0, 1);
+
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Informacija");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Kursai negauti");
+
+                    alert.getDialogPane().setExpandableContent(expContent);
+                    alert.showAndWait();
                 }
             });
             VBox dialogVbox = new VBox(kursoData3,newbutton5);
