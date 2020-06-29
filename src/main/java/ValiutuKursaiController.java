@@ -1,11 +1,15 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import model.Kursas;
+import model.Sarasas;
+
 import java.net.*;
 import java.sql.*;
 import java.text.Format;
@@ -42,9 +46,12 @@ public class ValiutuKursaiController implements Initializable {
     private TableColumn<Kursas, String> PAVADINIMAS;
     @FXML
     private TableColumn<Kursas, Double> TO_AMOUNT;
+
     @FXML
    // private TableColumn<Kursas, java.util.Date> CREATED_DATE;
     private TableColumn<Kursas, Date> CREATED_DATE;
+    @FXML
+    private TextField filterField2;
 
     public ValiutuKursaiController() throws ClassNotFoundException, SQLException {
         Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -102,7 +109,29 @@ public class ValiutuKursaiController implements Initializable {
             TO_AMOUNT.setCellValueFactory(new PropertyValueFactory<Kursas, Double>("TO_AMOUNT"));
             CREATED_DATE.setCellValueFactory(new PropertyValueFactory<Kursas, java.util.Date>("CREATED_DATE"));
             CREATED_DATE.setCellFactory(new LogasController.ColumnFormatter<Kursas,java.util.Date>(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")));
-            valKursai.setItems(duomenys);
+
+        FilteredList<Kursas> filteredData = new FilteredList<>(duomenys, p ->true);
+
+        filterField2.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(kursas -> {
+                // If filter text is empty, display all.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (kursas.getTO_CURR().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches first name.
+                } else if (kursas.getPAVADINIMAS().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+        SortedList<Kursas> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(valKursai.comparatorProperty());
+        valKursai.setItems(sortedData);
+
+//            valKursai.setItems(duomenys);
                 con.close();
     }
 

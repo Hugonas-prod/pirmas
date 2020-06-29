@@ -1,5 +1,7 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -27,10 +29,13 @@ import java.util.ResourceBundle;
         private TableColumn<Sarasas, String> PavadinimasVal;
         @FXML
         private TableColumn<Sarasas, java.util.Date> IrasoData;
+        @FXML
+        private TextField filterField;
 
         public PilnasSarController() throws ClassNotFoundException, SQLException {
             Class.forName("oracle.jdbc.driver.OracleDriver");
         }
+
         @Override
         public void initialize(URL location, ResourceBundle resources) {
                  try {
@@ -67,7 +72,29 @@ import java.util.ResourceBundle;
             PavadinimasVal.setCellValueFactory(new PropertyValueFactory<Sarasas, String>("PavadinimasVal"));
             IrasoData.setCellValueFactory(new PropertyValueFactory<Sarasas, java.util.Date>("IrasoData"));
             IrasoData.setCellFactory(new LogasController.ColumnFormatter<Sarasas, Date>(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")));
-            pilnasSar.setItems(duomenys);
+
+            FilteredList<Sarasas> filteredData = new FilteredList<>(duomenys,p ->true);
+
+            filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredData.setPredicate(sarasas -> {
+                    // If filter text is empty, display all.
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (sarasas.getKodas().toLowerCase().contains(lowerCaseFilter)) {
+                        return true; // Filter matches first name.
+                    } else if (sarasas.getPavadinimasVal().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+                    return false;
+                });
+            });
+            SortedList<Sarasas> sortedData = new SortedList<>(filteredData);
+            sortedData.comparatorProperty().bind(pilnasSar.comparatorProperty());
+            pilnasSar.setItems(sortedData);
+
+//                    pilnasSar.setItems(duomenys);
             con.close();
 
         }
